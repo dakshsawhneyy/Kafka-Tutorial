@@ -14,13 +14,13 @@ async function init(){
     await producer.connect();
     console.log('Producer Connected');
 
-    // Ask for various inputs from the user
-    rl.setPrompt('>');
-    rl.prompt();
+    // Ask for various inputs from the user     // rl is the interface that listens for typed lines
+    rl.setPrompt('>');      // every time you type in terminal, > shows a prompt like
+    rl.prompt();    // print prompts to the terminal
 
-    // Whenever user prompts
-    rl.on('line', async function(line) {
-        const [riderName, location] = line.split(' ');
+    // Whenever user prompts    
+    rl.on('line', async function(line) {    // reads line from the terminal
+        const [riderName, location] = line.split(' ');      // split the line into two wordss
         
         console.log('Sending Message [rider-updates]');
         await producer.send({
@@ -35,7 +35,7 @@ async function init(){
         })
         console.log('Message Sent Successfully [rider-updates]');
     
-    }).on('close', async() => {
+    }).on('close', async() => {     // when press control C or exits, it disconnect the producer
         // Disconnect Producer
         console.log("Disconnecting Producer.......")
         await producer.disconnect();
